@@ -34,7 +34,6 @@ class MiraiNetworkService {
   static Future<Response?> getRequest(MiraiNetworkRequest request) async {
     return _dio.get(
       request.url,
-      data: request.body,
       queryParameters: request.queryParameters,
     );
   }

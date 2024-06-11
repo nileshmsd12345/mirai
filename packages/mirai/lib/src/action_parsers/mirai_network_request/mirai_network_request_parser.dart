@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mirai/src/action_parsers/mirai_network_request/mirai_network_request.dart';
 import 'package:mirai/src/framework/framework.dart';
@@ -25,9 +26,10 @@ class MiraiNetworkRequestParser extends MiraiActionParser<MiraiNetworkRequest> {
 
     try {
       response = await MiraiNetworkService.request(context, model);
-    } on DioException catch (e) {
-      response = e.response;
-      Log.e(e.response);
+    } on Exception catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
 
     if (response?.statusCode != null) {
